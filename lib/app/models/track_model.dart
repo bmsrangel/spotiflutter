@@ -4,8 +4,8 @@ class TrackModel {
   String downloadUrl;
   String coverUrl;
   int id;
-  Duration duration;
-  Duration position;
+  Duration duration = Duration(milliseconds: 0);
+  Duration position = Duration(milliseconds: 0);
 
   TrackModel(
       {this.name, this.trackNumber, this.downloadUrl, this.coverUrl, this.id});
