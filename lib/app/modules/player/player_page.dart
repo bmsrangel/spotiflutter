@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:spotiflutter/app/models/track_model.dart';
 import 'package:spotiflutter/app/modules/player/player_controller.dart';
 import 'package:spotiflutter/app/modules/player/player_module.dart';
@@ -18,7 +17,7 @@ class _PlayerPageState extends State<PlayerPage> {
   final controller = PlayerModule.to.bloc<PlayerController>();
   @override
   void initState() {
-    controller.track = widget.track;
+    controller.currentTrack = widget.track;
     super.initState();
   }
 

@@ -4,8 +4,11 @@ class TrackModel {
   String downloadUrl;
   String coverUrl;
   int id;
+  Duration duration;
+  Duration position;
 
-  TrackModel({this.name, this.trackNumber, this.downloadUrl, this.coverUrl, this.id});
+  TrackModel(
+      {this.name, this.trackNumber, this.downloadUrl, this.coverUrl, this.id});
 
   TrackModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];

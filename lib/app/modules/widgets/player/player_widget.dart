@@ -1,4 +1,3 @@
-import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:spotiflutter/app/models/track_model.dart';
