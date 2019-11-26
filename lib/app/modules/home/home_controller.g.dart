@@ -9,32 +9,27 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeBase, Store {
-  final _$valueAtom = Atom(name: '_HomeBase.value');
+  final _$artistsAtom = Atom(name: '_HomeBase.artists');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  ObservableList<ArtistModel> get artists {
+    _$artistsAtom.context.enforceReadPolicy(_$artistsAtom);
+    _$artistsAtom.reportObserved();
+    return super.artists;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set artists(ObservableList<ArtistModel> value) {
+    _$artistsAtom.context.conditionallyRunInAction(() {
+      super.artists = value;
+      _$artistsAtom.reportChanged();
+    }, _$artistsAtom, name: '${_$artistsAtom.name}_set');
   }
 
-  final _$_HomeBaseActionController = ActionController(name: '_HomeBase');
+  final _$getArtistsAsyncAction = AsyncAction('getArtists');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_HomeBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_HomeBaseActionController.endAction(_$actionInfo);
-    }
+  Future getArtists() {
+    return _$getArtistsAsyncAction.run(() => super.getArtists());
   }
 }
