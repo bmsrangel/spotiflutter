@@ -41,8 +41,8 @@ abstract class _PlayerBase with Store {
       stop();
       selectedTrack = newTrack;
     }
-    positionSubscription =
-        audioPlayer.onAudioPositionChanged.listen((position) => currentPosition = position);
+    positionSubscription = audioPlayer.onAudioPositionChanged
+        .listen((position) => currentPosition = position);
 
     stateSubscription = audioPlayer.onPlayerStateChanged.listen((state) {
       if (state == AudioPlayerState.PLAYING) {
@@ -84,5 +84,9 @@ abstract class _PlayerBase with Store {
     currentPosition = Duration(milliseconds: 0);
     // positionSubscription.cancel();
     // stateSubscription.cancel();
+  }
+
+  seeker(double value) async {
+    audioPlayer.seek(value / 1000);
   }
 }
