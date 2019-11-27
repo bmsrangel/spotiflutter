@@ -9,6 +9,7 @@ class TracksController = _TracksBase with _$TracksController;
 
 abstract class _TracksBase with Store {
   final connection = AppModule.to.get<HasuraRepository>();
+  TrackModel selectedTrack;
 
   @observable
   ObservableList<TrackModel> tracks = ObservableList<TrackModel>();

@@ -6,8 +6,7 @@ import 'package:spotiflutter/app/modules/widgets/player/player_widget.dart';
 
 class PlayerPage extends StatefulWidget {
   final String title;
-  final TrackModel track;
-  const PlayerPage({Key key, this.title = "Player", this.track}) : super(key: key);
+  const PlayerPage({Key key, this.title = "Player"}) : super(key: key);
 
   @override
   _PlayerPageState createState() => _PlayerPageState();
@@ -15,22 +14,18 @@ class PlayerPage extends StatefulWidget {
 
 class _PlayerPageState extends State<PlayerPage> {
   final controller = PlayerModule.to.bloc<PlayerController>();
-  @override
-  void initState() {
-    controller.currentTrack = widget.track;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    TrackModel selectedTrack = controller.selectedTrack;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Column(
         children: <Widget>[
+          Text(selectedTrack.name),
           PlayerWidget(
-            track: widget.track,
             playerController: controller,
           ),
         ],

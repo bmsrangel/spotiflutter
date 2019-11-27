@@ -9,21 +9,21 @@ part of 'player_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PlayerController on _PlayerBase, Store {
-  final _$currentTrackAtom = Atom(name: '_PlayerBase.currentTrack');
+  final _$selectedTrackAtom = Atom(name: '_PlayerBase.selectedTrack');
 
   @override
-  TrackModel get currentTrack {
-    _$currentTrackAtom.context.enforceReadPolicy(_$currentTrackAtom);
-    _$currentTrackAtom.reportObserved();
-    return super.currentTrack;
+  TrackModel get selectedTrack {
+    _$selectedTrackAtom.context.enforceReadPolicy(_$selectedTrackAtom);
+    _$selectedTrackAtom.reportObserved();
+    return super.selectedTrack;
   }
 
   @override
-  set currentTrack(TrackModel value) {
-    _$currentTrackAtom.context.conditionallyRunInAction(() {
-      super.currentTrack = value;
-      _$currentTrackAtom.reportChanged();
-    }, _$currentTrackAtom, name: '${_$currentTrackAtom.name}_set');
+  set selectedTrack(TrackModel value) {
+    _$selectedTrackAtom.context.conditionallyRunInAction(() {
+      super.selectedTrack = value;
+      _$selectedTrackAtom.reportChanged();
+    }, _$selectedTrackAtom, name: '${_$selectedTrackAtom.name}_set');
   }
 
   final _$currentDurationAtom = Atom(name: '_PlayerBase.currentDuration');
@@ -89,5 +89,12 @@ mixin _$PlayerController on _PlayerBase, Store {
   @override
   Future back() {
     return _$backAsyncAction.run(() => super.back());
+  }
+
+  final _$stopAsyncAction = AsyncAction('stop');
+
+  @override
+  Future stop() {
+    return _$stopAsyncAction.run(() => super.stop());
   }
 }

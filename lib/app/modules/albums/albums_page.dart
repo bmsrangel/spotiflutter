@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:spotiflutter/app/modules/albums/albums_controller.dart';
 import 'package:spotiflutter/app/modules/albums/albums_module.dart';
+import 'package:spotiflutter/app/modules/home/home_controller.dart';
+import 'package:spotiflutter/app/modules/home/home_module.dart';
+import 'package:spotiflutter/app/modules/home/home_page.dart';
 import 'package:spotiflutter/app/modules/tracks/tracks_module.dart';
 
 class AlbumsPage extends StatefulWidget {
   final String title;
-  final int idArtist;
-  const AlbumsPage({Key key, this.title = "Albums", this.idArtist}) : super(key: key);
+  const AlbumsPage({Key key, this.title = "Albums"}) : super(key: key);
 
   @override
   _AlbumsPageState createState() => _AlbumsPageState();
@@ -15,9 +17,10 @@ class AlbumsPage extends StatefulWidget {
 
 class _AlbumsPageState extends State<AlbumsPage> {
   final controller = AlbumsModule.to.bloc<AlbumsController>();
+  final selectedArtist = HomeModule.to.bloc<HomeController>().selectedArtist;
   @override
   void initState() {
-    controller.getAlbumsByArtist(widget.idArtist);
+    controller.getAlbumsByArtist(selectedArtist.id);
     super.initState();
   }
 
@@ -36,11 +39,9 @@ class _AlbumsPageState extends State<AlbumsPage> {
                 return ListTile(
                   title: Text(controller.albums[index].name),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                TracksModule(controller.albums[index].id)));
+                    controller.selectedAlbum = controller.albums[index];
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) => TracksModule()));
                   },
                 );
               },

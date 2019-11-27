@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:spotiflutter/app/modules/albums/albums_page.dart';
 
 class AlbumsModule extends ModuleWidget {
-  final int idArtist;
-
-  AlbumsModule(this.idArtist);
   @override
   List<Bloc> get blocs => [
         Bloc((i) => AlbumsController()),
@@ -16,9 +13,7 @@ class AlbumsModule extends ModuleWidget {
   List<Dependency> get dependencies => [];
 
   @override
-  Widget get view => AlbumsPage(
-        idArtist: idArtist,
-      );
+  Widget get view => AlbumsPage();
 
   static Inject get to => Inject<AlbumsModule>.of();
 }

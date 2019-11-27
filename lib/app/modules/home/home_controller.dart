@@ -9,6 +9,8 @@ class HomeController = _HomeBase with _$HomeController;
 
 abstract class _HomeBase with Store {
   final connection = AppModule.to.get<HasuraRepository>();
+  ArtistModel selectedArtist;
+
   @observable
   ObservableList<ArtistModel> artists = ObservableList<ArtistModel>();
 
