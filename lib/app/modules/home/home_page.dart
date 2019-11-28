@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:spotiflutter/app/models/artist_model.dart';
 import 'package:spotiflutter/app/modules/albums/albums_module.dart';
 import 'package:spotiflutter/app/modules/home/home_controller.dart';
 import 'package:spotiflutter/app/modules/home/home_module.dart';

@@ -4,7 +4,6 @@ import 'package:spotiflutter/app/modules/albums/albums_controller.dart';
 import 'package:spotiflutter/app/modules/albums/albums_module.dart';
 import 'package:spotiflutter/app/modules/home/home_controller.dart';
 import 'package:spotiflutter/app/modules/home/home_module.dart';
-import 'package:spotiflutter/app/modules/home/home_page.dart';
 import 'package:spotiflutter/app/modules/tracks/tracks_module.dart';
 
 class AlbumsPage extends StatefulWidget {

@@ -16,10 +16,9 @@ abstract class _PlayerBase with Store {
   // static AudioPlayer audioPlayer = AudioPlayer();
   final audioPlayer = PlayerModule.to.get<AudioPlayer>();
   AudioPlayerState playerState = AudioPlayerState.STOPPED;
-  TrackModel newTrack = TracksModule.to.bloc<TracksController>().selectedTrack;
 
   @observable
-  TrackModel selectedTrack;
+  TrackModel selectedTrack = TracksModule.to.bloc<TracksController>().selectedTrack;
 
   // @observable
   // TrackModel currentTrack;
@@ -41,16 +40,20 @@ abstract class _PlayerBase with Store {
       stop();
       selectedTrack = newTrack;
     }
-    positionSubscription = audioPlayer.onAudioPositionChanged
-        .listen((position) => currentPosition = position);
+    positionSubscription = audioPlayer.onAudioPositionChanged.listen((position) {
+      if (position < currentDuration) {
+        currentPosition = position;
+      }
+    });
 
     stateSubscription = audioPlayer.onPlayerStateChanged.listen((state) {
       if (state == AudioPlayerState.PLAYING) {
         currentDuration = audioPlayer.duration;
       } else if (state == AudioPlayerState.STOPPED) {
-        if (state == AudioPlayerState.COMPLETED) {
-          currentPosition = audioPlayer.duration;
-        }
+      } else if (state == AudioPlayerState.COMPLETED) {
+        print("entrou aqui");
+        // currentPosition = audioPlayer.duration;
+        stop();
       }
     });
   }
@@ -82,6 +85,7 @@ abstract class _PlayerBase with Store {
     await audioPlayer.stop();
     playerState = AudioPlayerState.STOPPED;
     currentPosition = Duration(milliseconds: 0);
+    icon = Icons.play_circle_filled;
     // positionSubscription.cancel();
     // stateSubscription.cancel();
   }
