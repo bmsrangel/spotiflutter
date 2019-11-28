@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:spotiflutter/app/modules/albums/albums_module.dart';
-import 'package:spotiflutter/app/modules/home/home_controller.dart';
-import 'package:spotiflutter/app/modules/home/home_module.dart';
+import 'package:spotiflutter/app/modules/artists/artists_module.dart';
+import 'package:spotiflutter/app/modules/inicio/inicio_module.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -13,37 +11,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = HomeModule.to.bloc<HomeController>();
-
-  @override
-  void initState() {
-    controller.getArtists();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return DefaultTabController(
+      child: Scaffold(
+        body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            InicioModule(),
+            Container(color: Colors.black,),
+            Container(color: Colors.grey,)
+          ],
+        ),
+        bottomNavigationBar: Container(
+          color: Colors.black,
+          child: TabBar(
+            tabs: <Widget>[
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(Icons.search),),
+              Tab(icon: Icon(Icons.library_books),)
+            ],
+            labelColor: Colors.green,
+            indicatorSize: TabBarIndicatorSize.label,
+            unselectedLabelColor: Colors.white,
+            indicatorColor: Colors.green,
+          ),
+        ),
       ),
-      body: Observer(
-        builder: (BuildContext context) {
-          return ListView.separated(
-            itemCount: controller.artists.length,
-            separatorBuilder: (BuildContext context, int index) => Divider(),
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(controller.artists[index].name),
-                onTap: () {
-                  controller.selectedArtist = controller.artists[index];
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AlbumsModule()));
-                },
-              );
-            },
-          );
-        },
-      ),
+      length: 3,
     );
   }
 }
