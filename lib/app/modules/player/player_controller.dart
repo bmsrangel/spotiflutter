@@ -16,6 +16,7 @@ abstract class _PlayerBase with Store {
   // static AudioPlayer audioPlayer = AudioPlayer();
   final audioPlayer = PlayerModule.to.get<AudioPlayer>();
   AudioPlayerState playerState = AudioPlayerState.STOPPED;
+  List<TrackModel> playlist = TracksModule.to.bloc<TracksController>().tracks;
 
   @observable
   TrackModel selectedTrack = TracksModule.to.bloc<TracksController>().selectedTrack;
@@ -36,13 +37,12 @@ abstract class _PlayerBase with Store {
   IconData icon = Icons.play_circle_filled;
 
   _PlayerBase() {
-    if (newTrack.id != null) {
-      stop();
-      selectedTrack = newTrack;
-    }
+    stop();
     positionSubscription = audioPlayer.onAudioPositionChanged.listen((position) {
       if (position < currentDuration) {
         currentPosition = position;
+      } else {
+        currentPosition = currentDuration;
       }
     });
 
@@ -51,9 +51,12 @@ abstract class _PlayerBase with Store {
         currentDuration = audioPlayer.duration;
       } else if (state == AudioPlayerState.STOPPED) {
       } else if (state == AudioPlayerState.COMPLETED) {
-        print("entrou aqui");
-        // currentPosition = audioPlayer.duration;
-        stop();
+        if (playlist.indexOf(selectedTrack) == playlist.length - 1) {
+          stop();
+          selectedTrack = playlist[0];
+        } else {
+          next();
+        }
       }
     });
   }
@@ -69,15 +72,23 @@ abstract class _PlayerBase with Store {
       playerState = AudioPlayerState.PLAYING;
       icon = Icons.pause_circle_filled;
     }
-    print(selectedTrack.name);
-    // await audioPlayer.play(selectedTrack.downloadUrl);
   }
 
   @action
   back() async {
-    await audioPlayer.stop();
-    playerState = AudioPlayerState.STOPPED;
-    play();
+    if (currentPosition.inSeconds > 2) {
+      await audioPlayer.stop();
+      playerState = AudioPlayerState.STOPPED;
+      play();
+    } else {
+      int currentTrackListPosition = playlist.indexOf(selectedTrack);
+      if (currentTrackListPosition > 0) {
+        playerState = AudioPlayerState.STOPPED;
+        stop();
+        selectedTrack = playlist[currentTrackListPosition - 1];
+        play();
+      }
+    }
   }
 
   @action
@@ -93,4 +104,18 @@ abstract class _PlayerBase with Store {
   seeker(double value) async {
     audioPlayer.seek(value / 1000);
   }
+
+  @action
+  next() async {
+    int currentTrackListPosition = playlist.indexOf(selectedTrack);
+    if (currentTrackListPosition < playlist.length &&
+        currentTrackListPosition + 1 != playlist.length) {
+      playerState = AudioPlayerState.STOPPED;
+      stop();
+      selectedTrack = playlist[currentTrackListPosition + 1];
+      play();
+    }
+  }
 }
+
+completedStateHandler() {}

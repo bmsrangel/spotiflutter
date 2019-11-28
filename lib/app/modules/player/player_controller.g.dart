@@ -97,4 +97,11 @@ mixin _$PlayerController on _PlayerBase, Store {
   Future stop() {
     return _$stopAsyncAction.run(() => super.stop());
   }
+
+  final _$nextAsyncAction = AsyncAction('next');
+
+  @override
+  Future next() {
+    return _$nextAsyncAction.run(() => super.next());
+  }
 }

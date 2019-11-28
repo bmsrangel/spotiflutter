@@ -36,7 +36,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
                   buttons(Icons.skip_previous, widget.playerController.back),
                   buttons(widget.playerController.icon, widget.playerController.play),
-                  buttons(Icons.skip_next, () {}),
+                  buttons(Icons.skip_next, widget.playerController.next),
                   // buttons(Icons.repeat, () {})
                 ],
               ),
