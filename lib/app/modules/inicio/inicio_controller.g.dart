@@ -9,32 +9,27 @@ part of 'inicio_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InicioController on _InicioBase, Store {
-  final _$valueAtom = Atom(name: '_InicioBase.value');
+  final _$artistListAtom = Atom(name: '_InicioBase.artistList');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  ObservableList<ArtistModel> get artistList {
+    _$artistListAtom.context.enforceReadPolicy(_$artistListAtom);
+    _$artistListAtom.reportObserved();
+    return super.artistList;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set artistList(ObservableList<ArtistModel> value) {
+    _$artistListAtom.context.conditionallyRunInAction(() {
+      super.artistList = value;
+      _$artistListAtom.reportChanged();
+    }, _$artistListAtom, name: '${_$artistListAtom.name}_set');
   }
 
-  final _$_InicioBaseActionController = ActionController(name: '_InicioBase');
+  final _$getRecentArtistsAsyncAction = AsyncAction('getRecentArtists');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_InicioBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_InicioBaseActionController.endAction(_$actionInfo);
-    }
+  Future getRecentArtists() {
+    return _$getRecentArtistsAsyncAction.run(() => super.getRecentArtists());
   }
 }

@@ -27,26 +27,43 @@ class _TracksPageState extends State<TracksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Observer(
-          builder: (BuildContext context) {
-            return ListView.separated(
-              itemCount: controller.tracks.length,
-              separatorBuilder: (BuildContext context, int index) => Divider(),
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(controller.tracks[index].name),
-                  onTap: () {
-                    controller.selectedTrack = controller.tracks[index];
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) => PlayerModule()));
-                  },
-                );
-              },
-            );
-          },
+        backgroundColor: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 80, 30, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                selectedAlbum.name,
+                style: Theme.of(context).primaryTextTheme.title,
+              ),
+              Observer(
+                builder: (BuildContext context) {
+                  return Expanded(
+                    child: ListView.separated(
+                      itemCount: controller.tracks.length,
+                      separatorBuilder: (BuildContext context, int index) => Divider(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          title: Text(
+                            controller.tracks[index].name,
+                            style: Theme.of(context).primaryTextTheme.caption,
+                          ),
+                          onTap: () {
+                            controller.selectedTrack = controller.tracks[index];
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => PlayerModule()));
+                          },
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ));
   }
 }

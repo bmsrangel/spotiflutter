@@ -21,7 +21,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      // padding: EdgeInsets.all(8),
       child: Observer(
         builder: (_) {
           return Column(
@@ -58,6 +58,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               ? 80
               : iconData == Icons.skip_next || iconData == Icons.skip_previous ? 50 : 25,
         ),
+        color: Colors.white,
         onPressed: onPressed,
       ),
     );
@@ -78,7 +79,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   Widget _retornarTempoMusica(Duration position) {
     String tempoMusica =
         "${position.inMinutes.remainder(60).toString().padLeft(2, '0')}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')}";
-    return Text(tempoMusica);
+    return Text(
+      tempoMusica,
+      style: Theme.of(context).primaryTextTheme.subhead,
+    );
   }
 
   Widget _progressBar(PlayerController playerController) {
@@ -89,6 +93,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
       value: playerController.currentPosition.inMilliseconds.toDouble(),
       min: 0.0,
       max: playerController.currentDuration.inMilliseconds.toDouble(),
+      activeColor: Colors.green,
     );
   }
 }

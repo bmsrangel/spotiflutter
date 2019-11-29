@@ -33,10 +33,12 @@ class _ArtistsPageState extends State<ArtistsPage> {
           child: TextField(
             maxLines: 1,
             decoration: InputDecoration(
-              hintText: "Pesquisar",
-              hintStyle: TextStyle(color: Colors.white),
-              prefixIcon: Icon(Icons.search, color: Colors.white,)
-            ),
+                hintText: "Pesquisar",
+                hintStyle: TextStyle(color: Colors.white),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                )),
           ),
         ),
       ),
@@ -47,7 +49,10 @@ class _ArtistsPageState extends State<ArtistsPage> {
             separatorBuilder: (BuildContext context, int index) => Divider(),
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(controller.artists[index].name),
+                title: Text(
+                  controller.artists[index].name,
+                  style: Theme.of(context).primaryTextTheme.caption,
+                ),
                 onTap: () {
                   controller.selectedArtist = controller.artists[index];
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AlbumsModule()));

@@ -13,32 +13,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      child: Scaffold(
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            InicioModule(),
-            Container(color: Colors.black,),
-            Container(color: Colors.grey,)
-          ],
-        ),
-        bottomNavigationBar: Container(
-          color: Colors.black,
-          child: TabBar(
-            tabs: <Widget>[
-              Tab(icon: Icon(Icons.home)),
-              Tab(icon: Icon(Icons.search),),
-              Tab(icon: Icon(Icons.library_books),)
-            ],
-            labelColor: Colors.green,
-            indicatorSize: TabBarIndicatorSize.label,
-            unselectedLabelColor: Colors.white,
-            indicatorColor: Colors.green,
-          ),
-        ),
-      ),
-      length: 3,
-    );
+    return ArtistsModule();
+    // return DefaultTabController(
+    //   child: Scaffold(
+    //     body: TabBarView(
+    //       physics: NeverScrollableScrollPhysics(),
+    //       children: <Widget>[
+    //         InicioModule(),
+    //         Container(color: Colors.black,),
+    //         Container(color: Colors.grey,)
+    //       ],
+    //     ),
+    //     bottomNavigationBar: Container(
+    //       color: Colors.black,
+    //       child: TabBar(
+    //         tabs: <Widget>[
+    //           Tab(icon: Icon(Icons.home)),
+    //           Tab(icon: Icon(Icons.search),),
+    //           Tab(icon: Icon(Icons.library_books),)
+    //         ],
+    //         labelColor: Colors.green,
+    //         indicatorSize: TabBarIndicatorSize.label,
+    //         unselectedLabelColor: Colors.white,
+    //         indicatorColor: Colors.green,
+    //       ),
+    //     ),
+    //   ),
+    //   length: 3,
+    // );
   }
 }
